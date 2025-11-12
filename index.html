@@ -45,7 +45,7 @@
             font-weight: 700;
         }
 
-        /* --- HEADER STYLING (New Banner) --- */
+        /* --- HEADER STYLING (Banner) --- */
         header {
             background: #4f46e5; /* Fallback color */
             position: relative;
@@ -87,11 +87,11 @@
         }
 
 
-        /* --- FRAMEWORK FLOWCHART STYLING --- */
+        /* --- FRAMEWORK FLOWCHART STYLING (Updated for 2x2 Grid) --- */
         .flow-step-container {
-            display: flex;
+            display: flex; /* Default: Stacked on mobile */
             flex-direction: column;
-            gap: 0;
+            gap: 20px; /* Add gap between stacked elements */
             margin-top: 30px;
         }
 
@@ -100,34 +100,51 @@
             border-radius: 12px;
             box-shadow: 0 6px 20px rgba(0,0,0,0.08);
             padding: 25px;
-            margin-bottom: 20px;
+            /* Removed margin-bottom as gap handles spacing now */
             display: flex;
-            flex-direction: column;
-            gap: 20px;
+            flex-direction: column; /* Always stacked content inside card for grid fit */
+            gap: 15px;
             transition: transform 0.3s ease;
             align-items: stretch;
+            min-height: 400px; /* Set a minimum height for consistent grid cells */
         }
         .flow-step-card:hover { transform: translateY(-5px); }
-        .flow-step-text { flex: 1; order: 2; }
-        .flow-step-image { order: 1; max-width: 100%; display: flex; justify-content: center; }
+
+        .flow-step-text { 
+            order: 1; /* Text first */
+        }
+        .flow-step-image { 
+            order: 2; /* Image second */
+            max-width: 100%; 
+            display: flex; 
+            justify-content: center; 
+        }
         .flow-step-image img {
             width: 100%;
-            max-height: 320px; /* Original size 320px (mobile) */
+            height: 180px; /* Fixed height for image in grid */
             object-fit: cover;
             border-radius: 8px;
             border: 3px solid #f3f4f6;
         }
+        
+        /* Hide vertical arrows as they are confusing in a grid */
         .flow-arrow-vertical {
-            text-align: center; font-size: 2.5rem; color: #d1d5db; font-weight: 300; line-height: 0.5; margin: -5px 0 15px 0;
+            display: none; 
         }
-        .flow-step-wrapper:last-child .flow-arrow-vertical { display: none; }
 
         @media (min-width: 768px) {
-            .flow-step-card { flex-direction: row; min-height: 320px; align-items: center; } 
-            .flow-step-text { order: 1; padding-right: 25px; border-right: 1px solid #f3f4f6; }
-            .flow-step-image { order: 2; max-width: 35%; min-width: 250px; padding-left: 20px; }
-            .flow-step-image img { height: 288px; width: auto; } /* Original size 288px (desktop) */
+            .flow-step-container {
+                display: grid;
+                grid-template-columns: repeat(2, 1fr);
+                gap: 30px; /* Gap between grid cells */
+            }
+
+            .flow-step-card {
+                min-height: 450px; /* Slightly taller for desktop fit */
+                padding: 30px;
+            }
         }
+        /* --- END FRAMEWORK FLOWCHART STYLING --- */
         
         /* --- TOPIC SECTIONS (Applying the Framework) --- */
         .topic {
@@ -259,7 +276,6 @@
             <h1 class="text-4xl sm:text-5xl md:text-6xl font-extrabold leading-tight mb-4 text-white">
                 My Classroom Approach
             </h1>
-            <!-- Removed original subtext/headline from banner -->
         </div>
     </header>
 
@@ -273,7 +289,7 @@
         </p>
     </div>
 
-    <!-- THE FRAMEWORK -->
+    <!-- THE FRAMEWORK (NOW A 2x2 GRID ON DESKTOP) -->
     <section>
         <h2 class="text-indigo-700 border-l-4 border-indigo-500 pl-3">The Framework</h2>
         <p class="text-lg text-gray-600">This four-step framework defines how I approach teaching — simplifying concepts, enabling visualization, connecting to real life, and ensuring implementation through activities and reflection.</p>
@@ -290,10 +306,9 @@
                         <p class="text-sm text-gray-600">It ensures every student grasps the fundamental idea before moving forward.</p>
                     </div>
                     <div class="flow-step-image">
-                        <img src="https://raw.githubusercontent.com/iamvrajgopal/Approach/main/SimplyA.jpg" alt="Simplify - Concept breakdown">
+                        <img src="https://raw.githubusercontent.com/iamvrajgopal/Approach/main/Simply.jpg" alt="Simplify - Concept breakdown">
                     </div>
                 </div>
-                <div class="flow-arrow-vertical">↓</div>
             </div>
 
             <!-- Step 2: Visualize -->
@@ -309,7 +324,6 @@
                         <img src="https://raw.githubusercontent.com/iamvrajgopal/Approach/main/Visualise.jpg" alt="Visualize - Simulations and diagrams">
                     </div>
                 </div>
-                <div class="flow-arrow-vertical">↓</div>
             </div>
 
             <!-- Step 3: Relate -->
@@ -325,12 +339,11 @@
                         <img src="https://raw.githubusercontent.com/iamvrajgopal/Approach/main/relateFW.jpg" alt="Relate - Real-world connection">
                     </div>
                 </div>
-                <div class="flow-arrow-vertical">↓</div>
             </div>
 
-            <!-- Step 4: Implement (Border is now at the bottom) -->
+            <!-- Step 4: Implement -->
             <div class="flow-step-wrapper">
-                <div class="flow-step-card border-b-4 border-gray-700">
+                <div class="flow-step-card border-t-4 border-gray-700">
                     <div class="flow-step-text">
                         <div class="text-3xl font-extrabold text-gray-700 mb-2">4</div>
                         <h3 class="text-xl font-bold text-gray-900 mb-2">Implement</h3>
@@ -341,7 +354,6 @@
                         <img src="https://raw.githubusercontent.com/iamvrajgopal/Approach/main/Implement.jpg" alt="Implement - Hands-on activities">
                     </div>
                 </div>
-                <div class="flow-arrow-vertical last"></div>
             </div>
         </div>
     </section>
