@@ -1,0 +1,478 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Simplify • Visualize • Relate • Implement | My Teaching Approach</title>
+    <!-- Load Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;700&display=swap" rel="stylesheet">
+    <style>
+        /* Custom variables for consistency and easy color changes */
+        :root {
+            --simplify: #4f46e5; /* Tailwind indigo-600 */
+            --visualize: #0a9396; /* Custom Teal/Cyan */
+            --relate: #e49b0f; /* Custom Yellow/Orange */
+            --implement: #1e293b; /* Tailwind slate-900 */
+            --bg: #f8fbfd;
+            --card: #ffffff;
+            --text: #333;
+        }
+        
+        /* Custom Border Classes for Topic Cards (using CSS variables) */
+        .topic-border-simplify { border-color: var(--simplify); }
+        .topic-border-visualize { border-color: var(--visualize); }
+        .topic-border-relate { border-color: var(--relate); }
+        .topic-border-implement { border-color: var(--implement); } /* Fallback, though indigo is used below */
+
+        /* Basic Reset and Font */
+        * { box-sizing: border-box; font-family: 'Poppins', sans-serif; }
+        body { margin: 0; background: var(--bg); color: var(--text); line-height: 1.6; }
+
+        /* General Section Styling */
+        section {
+            max-width: 1000px;
+            margin: 60px auto;
+            padding: 0 20px;
+        }
+
+        h2 {
+            color: var(--simplify);
+            border-left: 5px solid var(--visualize);
+            padding-left: 10px;
+            margin-bottom: 20px;
+            font-size: 1.875rem; /* text-3xl */
+            font-weight: 700;
+        }
+
+        /* --- HEADER STYLING (New Banner) --- */
+        header {
+            background: #4f46e5; /* Fallback color */
+            position: relative;
+            color: white; /* Ensure text is white */
+        }
+        .header-banner-image {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: url('https://raw.githubusercontent.com/iamvrajgopal/Approach/main/Banner.jpg');
+            background-size: cover;
+            background-position: center center;
+            opacity: 0.7; /* Overlay for text readability */
+            z-index: 0;
+        }
+        header h1, header p {
+            color: white !important;
+            text-shadow: 0 0 5px rgba(0,0,0,0.5); /* Shadow for readability */
+        }
+
+        /* Sub-heading area below the header */
+        .sub-header-container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 20px;
+            text-align: center;
+        }
+        .sub-header-container h2 {
+            font-size: 2.25rem; /* text-4xl */
+            color: #1e293b; /* slate-900 */
+            border-left: none;
+            padding-left: 0;
+        }
+        .sub-header-container p {
+             font-size: 1.125rem; /* text-lg */
+             color: #4b5563; /* gray-600 */
+        }
+
+
+        /* --- FRAMEWORK FLOWCHART STYLING --- */
+        .flow-step-container {
+            display: flex;
+            flex-direction: column;
+            gap: 0;
+            margin-top: 30px;
+        }
+
+        .flow-step-card {
+            background: var(--card);
+            border-radius: 12px;
+            box-shadow: 0 6px 20px rgba(0,0,0,0.08);
+            padding: 25px;
+            margin-bottom: 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            transition: transform 0.3s ease;
+            align-items: stretch;
+        }
+        .flow-step-card:hover { transform: translateY(-5px); }
+        .flow-step-text { flex: 1; order: 2; }
+        .flow-step-image { order: 1; max-width: 100%; display: flex; justify-content: center; }
+        .flow-step-image img {
+            width: 100%;
+            max-height: 320px; /* Original size 320px (mobile) */
+            object-fit: cover;
+            border-radius: 8px;
+            border: 3px solid #f3f4f6;
+        }
+        .flow-arrow-vertical {
+            text-align: center; font-size: 2.5rem; color: #d1d5db; font-weight: 300; line-height: 0.5; margin: -5px 0 15px 0;
+        }
+        .flow-step-wrapper:last-child .flow-arrow-vertical { display: none; }
+
+        @media (min-width: 768px) {
+            .flow-step-card { flex-direction: row; min-height: 320px; align-items: center; } 
+            .flow-step-text { order: 1; padding-right: 25px; border-right: 1px solid #f3f4f6; }
+            .flow-step-image { order: 2; max-width: 35%; min-width: 250px; padding-left: 20px; }
+            .flow-step-image img { height: 288px; width: auto; } /* Original size 288px (desktop) */
+        }
+        
+        /* --- TOPIC SECTIONS (Applying the Framework) --- */
+        .topic {
+            background: var(--card);
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+            margin-top: 30px;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column; /* Default: Stacked (Mobile) */
+            border-style: solid;
+            border-color: #f3f4f6; /* Default light border */
+        }
+        
+        /* Mobile: Top Border */
+        .topic { border-top-width: 4px; border-left-width: 0; }
+
+        .topic-image-container { 
+            width: 100%;
+            overflow: hidden;
+            order: 1;
+        }
+        
+        .topic img {
+            width: 100%;
+            /* MAINTAINED: Reduced height to 60% of 700px (420px) */
+            height: 420px; 
+            object-fit: cover;
+            /* MAINTAINED: Anchored to the top to crop the bottom 40% */
+            object-position: top center;
+        }
+        
+        .topic-content {
+            padding: 20px;
+            flex: 1;
+            order: 2;
+        }
+        .topic-content h3 {
+            color: var(--simplify);
+            margin-top: 0;
+            font-size: 1.5rem;
+            font-weight: 700;
+        }
+        
+        /* Accentuation on Hover */
+        .topic-content p {
+            margin-bottom: 10px;
+            font-size: 1rem;
+            padding: 5px; 
+            border-radius: 4px;
+            transition: background-color 0.2s ease;
+        }
+        .topic-content p:hover {
+            background-color: #f3f4f6; /* Subtle gray background */
+        }
+
+        /* Custom classes for framework step colors in topic content */
+        .simplify-text { color: var(--simplify); font-weight: 700; }
+        .visualize-text { color: var(--visualize); font-weight: 700; }
+        .relate-text { color: var(--relate); font-weight: 700; }
+        .implement-text { color: var(--implement); font-weight: 700; }
+        
+        @media (min-width: 768px) {
+            .topic {
+                flex-direction: row; /* Desktop: Side-by-Side */
+                align-items: stretch;
+                border-top-width: 0; /* No top border */
+                border-left-width: 4px; /* Primary color border on the left */
+            }
+
+            .topic-image-container {
+                width: 40%; /* Image width remains at 40% */
+                max-width: 300px;
+                flex-shrink: 0;
+                order: 1; /* Image Left */
+                max-height: none; /* Removed fixed max height to allow content to dictate height */
+            }
+            
+            .topic img {
+                height: 100%; /* Fill container height */
+                border-radius: 0; /* Adjust corners */
+            }
+            
+            .topic-content {
+                width: 60%; /* Text width remains at 60% */
+                padding: 30px; 
+                order: 2; /* Text Right */
+                border-left: 1px solid #f3f4f6; /* Internal separator */
+            }
+        }
+        /* --- END TOPIC SECTIONS --- */
+
+        /* Video Section */
+        .video-container {
+            position: relative; padding-top: 56.25%; height: 0; overflow: hidden; border-radius: 12px; box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+        .video-container iframe {
+            position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: none;
+        }
+        
+        /* Reflection Image Styling */
+        .reflection-image img {
+            max-height: 500px;
+        }
+
+        /* Assessment Buttons */
+        .buttons {
+            display: flex; flex-wrap: wrap; gap: 15px; margin-top: 20px;
+        }
+        .buttons a {
+            flex: 1 1 45%; background: #4f46e5; color: white; padding: 15px; border-radius: 8px; text-align: center; text-decoration: none; font-weight: 500; transition: background 0.3s ease;
+        }
+        .buttons a:hover {
+            background: #4338ca;
+        }
+
+        @media(max-width: 768px){
+            .buttons a { flex: 1 1 100%; }
+        }
+    </style>
+</head>
+
+<body class="bg-gray-50 text-gray-800">
+
+    <!-- UPDATED HEADER SECTION (Only banner text) -->
+    <header class="relative pt-20 pb-16 md:pt-32 md:pb-24 rounded-b-3xl shadow-2xl overflow-hidden">
+        <div class="header-banner-image"></div>
+        <div class="max-w-6xl mx-auto px-6 lg:px-8 text-center relative z-10">
+            <h1 class="text-4xl sm:text-5xl md:text-6xl font-extrabold leading-tight mb-4 text-white">
+                My Classroom Approach
+            </h1>
+            <!-- Removed original subtext/headline from banner -->
+        </div>
+    </header>
+
+    <!-- NEW SUB-HEADER SECTION -->
+    <div class="sub-header-container pt-8 pb-4">
+        <h2 class="font-extrabold leading-tight mb-4">
+            Simplify • Visualize • Relate • Implement — A Teaching Framework in Action
+        </h2>
+        <p class="font-light max-w-4xl mx-auto mb-8">
+            This framework guides how I design lessons to help students connect complex scientific ideas with the world around them. The example below — Laws of Motion (Grade 9) — illustrates how this approach unfolds in class.
+        </p>
+    </div>
+
+    <!-- THE FRAMEWORK -->
+    <section>
+        <h2 class="text-indigo-700 border-l-4 border-indigo-500 pl-3">The Framework</h2>
+        <p class="text-lg text-gray-600">This four-step framework defines how I approach teaching — simplifying concepts, enabling visualization, connecting to real life, and ensuring implementation through activities and reflection.</p>
+
+        <div class="flow-step-container">
+            
+            <!-- Step 1: Simplify -->
+            <div class="flow-step-wrapper">
+                <div class="flow-step-card border-t-4 border-indigo-500">
+                    <div class="flow-step-text">
+                        <div class="text-3xl font-extrabold text-indigo-500 mb-2">1</div>
+                        <h3 class="text-xl font-bold text-gray-900 mb-2">Simplify</h3>
+                        <p class="text-sm text-gray-600">Break complex concepts into core, digestible components. <b>Clarity is the foundation.</b></p>
+                        <p class="text-sm text-gray-600">It ensures every student grasps the fundamental idea before moving forward.</p>
+                    </div>
+                    <div class="flow-step-image">
+                        <img src="https://raw.githubusercontent.com/iamvrajgopal/Approach/main/SimplyA.jpg" alt="Simplify - Concept breakdown">
+                    </div>
+                </div>
+                <div class="flow-arrow-vertical">↓</div>
+            </div>
+
+            <!-- Step 2: Visualize -->
+            <div class="flow-step-wrapper">
+                <div class="flow-step-card border-t-4 border-visualize">
+                    <div class="flow-step-text">
+                        <div class="text-3xl font-extrabold text-visualize mb-2">2</div>
+                        <h3 class="text-xl font-bold text-gray-900 mb-2">Visualize</h3>
+                        <p class="text-sm text-gray-600">Use simulations, diagrams, and models to make abstract ideas tangible. <b>See the science.</b></p>
+                        <p class="text-sm text-gray-600">This active engagement transforms passive learning into tangible understanding.</p>
+                    </div>
+                    <div class="flow-step-image">
+                        <img src="https://raw.githubusercontent.com/iamvrajgopal/Approach/main/Visualise.jpg" alt="Visualize - Simulations and diagrams">
+                    </div>
+                </div>
+                <div class="flow-arrow-vertical">↓</div>
+            </div>
+
+            <!-- Step 3: Relate -->
+            <div class="flow-step-wrapper">
+                <div class="flow-step-card border-t-4 border-relate">
+                    <div class="flow-step-text">
+                        <div class="text-3xl font-extrabold text-relate mb-2">3</div>
+                        <h3 class="text-xl font-bold text-gray-900 mb-2">Relate</h3>
+                        <p class="text-sm text-gray-600">Connect principles to daily life and student experiences. <b>Make it personally relevant.</b></p>
+                        <p class="text-sm text-gray-600">Connecting concepts to familiar scenarios boosts recall and deepens comprehension.</p>
+                    </div>
+                    <div class="flow-step-image">
+                        <img src="https://raw.githubusercontent.com/iamvrajgopal/Approach/main/relateFW.jpg" alt="Relate - Real-world connection">
+                    </div>
+                </div>
+                <div class="flow-arrow-vertical">↓</div>
+            </div>
+
+            <!-- Step 4: Implement (Border is now at the bottom) -->
+            <div class="flow-step-wrapper">
+                <div class="flow-step-card border-b-4 border-gray-700">
+                    <div class="flow-step-text">
+                        <div class="text-3xl font-extrabold text-gray-700 mb-2">4</div>
+                        <h3 class="text-xl font-bold text-gray-900 mb-2">Implement</h3>
+                        <p class="text-sm text-gray-600">Apply learning through projects, labs, and reflection. <b>Build confidence through action.</b></p>
+                        <p class="text-sm text-gray-600">Projects and labs serve as the ultimate test of true mastery and application.</p>
+                    </div>
+                    <div class="flow-step-image">
+                        <img src="https://raw.githubusercontent.com/iamvrajgopal/Approach/main/Implement.jpg" alt="Implement - Hands-on activities">
+                    </div>
+                </div>
+                <div class="flow-arrow-vertical last"></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- VIDEO SECTION -->
+    <section>
+        <h2 class="text-indigo-700 border-l-4 border-indigo-500 pl-3">Classroom in Action</h2>
+        <p class="text-lg text-gray-600 mb-8">Watch students explore, experiment, and present their learnings in activities across the curriculum.</p>
+        <div class="video-container">
+            <!-- UPDATED YOUTUBE LINK -->
+            <iframe src="https://www.youtube.com/embed/0d4wvFEz0ZM" title="Classroom Activities Video" allowfullscreen></iframe>
+        </div>
+    </section>
+
+    <!-- CHAPTER EXAMPLE -->
+    <section>
+        <h2 class="text-indigo-700 border-l-4 border-indigo-500 pl-3">Applying the Framework — A Sample Chapter: ‘Laws of Motion’ (Grade 9)</h2>
+        <p class="text-lg text-gray-600">This specific chapter plan illustrates how the cycle of Simplify → Visualize → Relate → Implement was executed to help students build both understanding and confidence through experience.</p>
+
+        <!-- TOPIC 1 -->
+        <div class="topic topic-border-simplify">
+            <!-- Image Container (Left on Desktop) -->
+            <div class="topic-image-container"> 
+                <img src="https://raw.githubusercontent.com/iamvrajgopal/Approach/main/Topic1.JPG" alt="Topic 1: Motion, Distance and Displacement">
+            </div>
+            <!-- Content Container (Right on Desktop) -->
+            <div class="topic-content">
+                <h3>Topic 1 — Motion, Distance and Displacement</h3>
+                <p><b class="simplify-text">Simplify:</b> Motion explained as a relative concept — a person on a moving bus is at rest relative to fellow passengers but in motion relative to trees outside.</p>
+                <p><b class="visualize-text">Visualize:</b> Google Maps routes from home to school to show <em>distance</em> vs <em>displacement</em>; PHET <a href="https://phet.colorado.edu/sims/cheerpj/moving-man/latest/moving-man.html" target="_blank" class="text-indigo-600 hover:text-indigo-800">Moving Man Simulation</a> for velocity.</p>
+                <p><b class="relate-text">Relate:</b> Students compared walking and cycling routes to school to understand time, distance and speed differences.</p>
+            </div>
+        </div>
+
+        <!-- TOPIC 2 -->
+        <div class="topic topic-border-simplify">
+            <!-- Image Container (Left on Desktop) -->
+            <div class="topic-image-container">
+                <img src="https://raw.githubusercontent.com/iamvrajgopal/Approach/main/Topic2.jpg" alt="Topic 2: Speed, Velocity and Acceleration">
+            </div>
+            <!-- Content Container (Right on Desktop) -->
+            <div class="topic-content">
+                <h3>Topic 2 — Speed, Velocity and Acceleration</h3>
+                <p><b class="simplify-text">Simplify:</b> Introduced speed as “how fast” and velocity as “how fast and in what direction”.</p>
+                <p><b class="visualize-text">Visualize:</b> Explored with <a href="https://javalab.org/en/constant_velocity_en/" target="_blank" class="text-indigo-600 hover:text-indigo-800">Constant Velocity</a> and <a href="https://javalab.org/en/uniformly_accelerated_motion_en/" target="_blank" class="text-indigo-600 hover:text-indigo-800">Uniform Acceleration</a> simulations from Javalab.</p>
+                <p><b class="relate-text">Relate:</b> Rolling marbles along curved and inclined paths helped observe uniform and non-uniform motion.</p>
+            </div>
+        </div>
+
+        <!-- TOPIC 3 -->
+        <div class="topic topic-border-simplify">
+            <!-- Image Container (Left on Desktop) -->
+            <div class="topic-image-container">
+                <img src="https://raw.githubusercontent.com/iamvrajgopal/Approach/main/topic3.jpg" alt="Topic 3: Graphical and Mathematical Analysis">
+            </div>
+            <!-- Content Container (Right on Desktop) -->
+            <div class="topic-content">
+                <h3>Topic 3 — Graphical and Mathematical Analysis</h3>
+                <p><b class="simplify-text">Simplify:</b> Graphs as stories of motion — slope shows speed, area gives distance.</p>
+                <p><b class="visualize-text">Visualize:</b> Used <a href="https://www.geogebra.org/m/pdNj3DgD" target="_blank" class="text-indigo-600 hover:text-indigo-800">GeoGebra Simulation</a> to connect position, velocity and acceleration.</p>
+                <p><b class="implement-text">Implement:</b> Students plotted their own motion graphs from real observations.</p>
+            </div>
+        </div>
+
+        <!-- TOPIC 4 -->
+        <div class="topic topic-border-relate">
+            <!-- Image Container (Left on Desktop) -->
+            <div class="topic-image-container">
+                <img src="https://raw.githubusercontent.com/iamvrajgopal/Approach/main/topic4.jpg" alt="Topic 4: Circular Motion">
+            </div>
+            <!-- Content Container (Right on Desktop) -->
+            <div class="topic-content">
+                <h3>Topic 4 — Circular Motion</h3>
+                <p><b class="relate-text">Relate:</b> Observed rotating fans and clock hands to understand uniform circular motion.</p>
+                <p><b class="implement-text">Implement:</b> Rotating a ball inside a pipe with a detachable section to show changing direction but constant speed.</p>
+            </div>
+        </div>
+
+        <!-- TOPIC 5 -->
+        <div class="topic topic-border-simplify">
+            <!-- Image Container (Left on Desktop) -->
+            <div class="topic-image-container">
+                <img src="https://raw.githubusercontent.com/iamvrajgopal/Approach/main/topic5.JPG" alt="Topic 5: Newton’s Laws of Motion">
+            </div>
+            <!-- Content Container (Right on Desktop) -->
+            <div class="topic-content">
+                <h3>Topic 5 — Newton’s Laws of Motion</h3>
+                <p><b class="simplify-text">Simplify & Relate:</b> Explained inertia through shaking a mango tree branch; force and mass through a catapult with balls of different weights; action-reaction through throwing a ball and observing its return.</p>
+                <p><b class="visualize-text">Visualize:</b> Explored using <a href="https://javalab.org/en/force_movement_en/" target="_blank" class="text-indigo-600 hover:text-indigo-800">Newton’s Laws of Motion (Javalab)</a> and <a href="https://phet.colorado.edu/sims/html/collision-lab/latest/collision-lab_all.html" target="_blank" class="text-indigo-600 hover:text-indigo-800">PHET Collision Lab</a>.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- REFLECTION SECTION -->
+    <section>
+        <h2 class="text-indigo-700 border-l-4 border-indigo-500 pl-3">What Students Gained</h2>
+        <p class="text-lg text-gray-600 mb-8">Students developed not just content mastery but the curiosity to question, analyze, and apply scientific principles to real-world contexts. They learned teamwork, experimentation, and communication through every step.</p>
+        <div class="relative w-full overflow-hidden rounded-xl shadow-lg border-4 border-gray-100 reflection-image">
+            <img src="https://raw.githubusercontent.com/iamvrajgopal/Approach/main/Reflection.jpg" alt="Students reflecting on learning" class="w-full h-auto object-cover max-h-[500px] rounded-lg">
+        </div>
+    </section>
+
+    <!-- ASSESSMENT LINKS -->
+    <section>
+        <h2 class="text-indigo-700 border-l-4 border-indigo-500 pl-3">Assessments and Practice</h2>
+        <p class="text-lg text-gray-600">Students reinforced their learning through structured worksheets and differentiated assessments aligned to the school syllabus.</p>
+        <div class="buttons">
+            <a href="https://docs.google.com/document/d/1fSk9CpHyQ0On-wDHbuUrjw5A0XffnkjhD6lEj-tWZ7g/edit?usp=sharing" target="_blank">Concept Worksheets</a>
+            <a href="https://docs.google.com/document/d/1Pxjn0pIig9JwyK0BfmhFIeGWwtg6clGS4zK_t_OBneE/edit?usp=sharing" target="_blank">Graph & Equation Practice</a>
+            <a href="https://docs.google.com/document/d/1EAlSdFZoKwC-5krtuj9JQyGOHKke5-blyYM0N-oLH0s/edit?usp=sharing" target="_blank">Momentum Worksheet</a>
+            <a href="https://docs.google.com/document/d/1LglVxI4wu_ep7XJqwr0d89MqNIssz4ZcW9glGONiqRM/edit?usp=sharing" target="_blank">Differentiated Tests</a>
+        </div>
+    </section>
+
+    <!-- NEW MAIN PAGE BUTTON SECTION -->
+    <section class="text-center">
+        <a href="https://iamvrajgopal.github.io/tfi_impact_stories_v1/" target="_blank" class="px-8 py-4 bg-indigo-700 text-white font-semibold text-lg rounded-full hover:bg-indigo-800 transition shadow-lg inline-block">
+            ← Back to Main Page
+        </a>
+    </section>
+
+    <!-- MODIFIED FOOTER to match Impact Stories style -->
+    <footer class="bg-gray-800 text-white py-16 mt-12">
+        <div class="max-w-6xl mx-auto px-6 lg:px-8 text-center">
+            <p class="text-xl font-light max-w-4xl mx-auto mb-4 text-gray-300">
+                “Simplify the concept. Visualize the science. Relate it to life. Implement it with purpose.”
+            </p>
+            <h3 class="text-xl font-bold mb-1">Rajgopal Venkateswaran</h3>
+            <p class="text-sm text-gray-400">Varsha Nagar MPS | Teach For India Fellow</p>
+            <p class="text-xs mt-8 text-gray-500">&copy; 2024 Academic Transformation Portfolio</p>
+        </div>
+    </footer>
+</body>
+</html>
