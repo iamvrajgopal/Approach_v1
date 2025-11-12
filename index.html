@@ -107,6 +107,7 @@
             transition: transform 0.3s ease;
             align-items: stretch;
             min-height: 400px; /* Set a minimum height for consistent grid cells */
+            border: 0px solid transparent; /* Reset borders to be controlled by classes/inline styles */
         }
         .flow-step-card:hover { transform: translateY(-5px); }
 
@@ -269,8 +270,8 @@
 
 <body class="bg-gray-50 text-gray-800">
 
-    <!-- UPDATED HEADER SECTION (Only banner text) -->
-    <header class="relative pt-20 pb-16 md:pt-32 md:pb-24 rounded-b-3xl shadow-2xl overflow-hidden">
+    <!-- UPDATED HEADER SECTION (Increased padding for height) -->
+    <header class="relative pt-32 pb-24 md:pt-40 md:pb-32 rounded-b-3xl shadow-2xl overflow-hidden">
         <div class="header-banner-image"></div>
         <div class="max-w-6xl mx-auto px-6 lg:px-8 text-center relative z-10">
             <h1 class="text-4xl sm:text-5xl md:text-6xl font-extrabold leading-tight mb-4 text-white">
@@ -289,14 +290,14 @@
         </p>
     </div>
 
-    <!-- THE FRAMEWORK (NOW A 2x2 GRID ON DESKTOP) -->
+    <!-- THE FRAMEWORK (NOW A 2x2 GRID WITH BORDER MODIFICATIONS) -->
     <section>
         <h2 class="text-indigo-700 border-l-4 border-indigo-500 pl-3">The Framework</h2>
         <p class="text-lg text-gray-600">This four-step framework defines how I approach teaching — simplifying concepts, enabling visualization, connecting to real life, and ensuring implementation through activities and reflection.</p>
 
         <div class="flow-step-container">
             
-            <!-- Step 1: Simplify -->
+            <!-- Step 1: Simplify (Upper End Highlighted: border-t-4) -->
             <div class="flow-step-wrapper">
                 <div class="flow-step-card border-t-4 border-indigo-500">
                     <div class="flow-step-text">
@@ -311,11 +312,13 @@
                 </div>
             </div>
 
-            <!-- Step 2: Visualize -->
+            <!-- Step 2: Visualize (Upper End Highlighted: border-t-4) -->
             <div class="flow-step-wrapper">
-                <div class="flow-step-card border-t-4 border-visualize">
+                <!-- Using inline style for the custom variable border color -->
+                <div class="flow-step-card border-t-4" style="border-color: var(--visualize);">
                     <div class="flow-step-text">
-                        <div class="text-3xl font-extrabold text-visualize mb-2">2</div>
+                        <!-- Using inline style for the custom variable text color -->
+                        <div class="text-3xl font-extrabold mb-2" style="color: var(--visualize);">2</div>
                         <h3 class="text-xl font-bold text-gray-900 mb-2">Visualize</h3>
                         <p class="text-sm text-gray-600">Use simulations, diagrams, and models to make abstract ideas tangible. <b>See the science.</b></p>
                         <p class="text-sm text-gray-600">This active engagement transforms passive learning into tangible understanding.</p>
@@ -326,11 +329,13 @@
                 </div>
             </div>
 
-            <!-- Step 3: Relate -->
+            <!-- Step 3: Relate (Bottom End Highlighted: border-b-4) -->
             <div class="flow-step-wrapper">
-                <div class="flow-step-card border-t-4 border-relate">
+                <!-- Using inline style for the custom variable border color -->
+                <div class="flow-step-card border-b-4" style="border-color: var(--relate);">
                     <div class="flow-step-text">
-                        <div class="text-3xl font-extrabold text-relate mb-2">3</div>
+                        <!-- Using inline style for the custom variable text color -->
+                        <div class="text-3xl font-extrabold mb-2" style="color: var(--relate);">3</div>
                         <h3 class="text-xl font-bold text-gray-900 mb-2">Relate</h3>
                         <p class="text-sm text-gray-600">Connect principles to daily life and student experiences. <b>Make it personally relevant.</b></p>
                         <p class="text-sm text-gray-600">Connecting concepts to familiar scenarios boosts recall and deepens comprehension.</p>
@@ -341,9 +346,9 @@
                 </div>
             </div>
 
-            <!-- Step 4: Implement -->
+            <!-- Step 4: Implement (Bottom End Highlighted: border-b-4) -->
             <div class="flow-step-wrapper">
-                <div class="flow-step-card border-t-4 border-gray-700">
+                <div class="flow-step-card border-b-4 border-gray-700">
                     <div class="flow-step-text">
                         <div class="text-3xl font-extrabold text-gray-700 mb-2">4</div>
                         <h3 class="text-xl font-bold text-gray-900 mb-2">Implement</h3>
